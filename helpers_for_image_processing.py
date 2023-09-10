@@ -69,11 +69,11 @@ def sort_points_by_order_from_top_to_bottom(arg_points: List[List[int]]) -> None
     arg_points.sort(key=lambda point: point[constants.ROW_INDEX_IN_IMG])
 
 
-def get_distance_between_points(p1: List[int], p2: List[int]) -> int:
-    a = p2[constants.COL_INDEX_IN_IMG] - p1[constants.COL_INDEX_IN_IMG]
-    b = p2[constants.ROW_INDEX_IN_IMG] - p1[constants.ROW_INDEX_IN_IMG]
+def get_distance_between_points(arg_p1: List[int], arg_p2: List[int]) -> int:
+    a = arg_p2[constants.COL_INDEX_IN_IMG] - arg_p1[constants.COL_INDEX_IN_IMG]
+    b = arg_p2[constants.ROW_INDEX_IN_IMG] - arg_p1[constants.ROW_INDEX_IN_IMG]
     return np.sqrt((a ** 2) + (b ** 2))
 
-def get_cell_size_in_sudoku_board(sudoku_board_gray_scale_img: np.ndarray) -> int:
-    return sudoku_board_gray_scale_img.shape[constants.HEIGHT_OF_THE_IMG] // constants.NUMBER_OF_ROWS_IN_SUDOKU_BOARD
+def get_cell_size_in_sudoku_board(arg_sudoku_board_gray_scale_img: np.ndarray) -> int:
+    return arg_sudoku_board_gray_scale_img.shape[constants.HEIGHT_OF_THE_IMG] // constants.NUMBER_OF_ROWS_IN_SUDOKU_BOARD
 

@@ -25,7 +25,9 @@ class SudokuCube:
         __init__(self, arg_value: int, arg_is_an_initialized_cube: bool) -> None: Initializes a new Sudoku cube.
         set_value_of_sudoku_cube(self, arg_value: int) -> None: Sets the value of the sudoku cube.
         is_an_initialized_sudoku_cube(self) -> bool: Retrieves whether the sudoku cube was initialized from the beginning by the user.
-        def get_value_of_sudoku_cube(self) -> int: Retrieves the value of a cube.
+        get_value_of_sudoku_cube(self) -> int: Retrieves the value of a cube.
+        __eq__(self, other): Checks if the values of cubes of two sudoku boards is equal.
+         If they are equal the method will return true, else false.
 
     Usage:
         Create cubes while create sudoku board obj.
@@ -179,3 +181,13 @@ class SudokuBoard:
             if amount_of_cubes_with_matching_value > constants.MAX_AMOUNT_OF_CUBES_WITH_THE_SAME_VALUE_IN_COL:
                 return True
         return False
+
+    # Override methods
+    def __eq__(self, other):
+        for row_index in range(constants.NUMBER_OF_ROWS_IN_SUDOKU_BOARD):
+            for col_index in range(constants.NUMBER_OF_COLS_IN_SUDOKU_BOARD):
+                cube_value = self.get_cube_in_board(row_index, col_index).get_value_of_sudoku_cube()
+                other_cube_value = other.get_cube_in_board(row_index, col_index).get_value_of_sudoku_cube()
+                if cube_value != other_cube_value:
+                    return False
+        return True
