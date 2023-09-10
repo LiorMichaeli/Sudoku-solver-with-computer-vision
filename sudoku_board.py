@@ -4,6 +4,7 @@ sudoku_board
 This is file that handles sudoku board and sudoku cubes.
 """
 
+
 # Imports
 from typing import Tuple
 import constants
@@ -45,9 +46,9 @@ class SudokuCube:
 
     def set_value_of_sudoku_cube(self, arg_value: int) -> None:
         """
-         Sets the value of the sudoku cube. The method checks if the value is legal.
-         If the value is illegal, so the method will raise an exception with the appropriate error msg.
-        :param arg_value:
+         Sets the value of the sudoku cube. The method checks if the value is legal. The value need be integer between 0 and 9.
+         :exception illegal value: If the value is illegal, so the method will raise an exception with the appropriate error msg.
+         :param arg_value:
         """
         if self.__is_valid_value_of_sudoku_cube(arg_value):
             self.__value = arg_value
