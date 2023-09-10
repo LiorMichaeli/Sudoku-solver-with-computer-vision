@@ -8,10 +8,7 @@ This is file that handles SudokuSolver.
 # Imports
 from sudoku_board import SudokuBoard, SudokuCube
 from sudoku_gui import SudokuGui
-import copy
 from typing import Tuple
-import time
-import pygame
 import constants
 
 

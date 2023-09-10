@@ -6,7 +6,7 @@ This is file that handles sudoku board and sudoku cubes.
 
 
 # Imports
-from typing import Tuple
+from typing import Tuple, List
 import constants
 from errors import Errors
 
@@ -47,7 +47,7 @@ class SudokuCube:
     def set_value_of_sudoku_cube(self, arg_value: int) -> None:
         """
          Sets the value of the sudoku cube. The method checks if the value is legal. The value need be integer between 0 and 9.
-         :exception illegal value: If the value is illegal, so the method will raise an exception with the appropriate error msg.
+         :exception Illegal value: If the value is illegal, so the method will raise an exception with the appropriate error msg.
          :param arg_value:
         """
         if self.__is_valid_value_of_sudoku_cube(arg_value):
@@ -89,7 +89,7 @@ class SudokuBoard:
             Example:
                 sudoku_board.has_duplicates_of_value_in_area_or_row_or_col(current_cube_value, area_indexes, row_index, col_index)
         """
-    def __init__(self, arg_starter_sudoku_board: list) -> None:
+    def __init__(self, arg_starter_sudoku_board: List[List[int]]) -> None:
         self.__sudoku_board_cubes = []
         for row_index in range(constants.NUMBER_OF_ROWS_IN_SUDOKU_BOARD):
             current_row_of_cubes_in_sudoku_board = []
