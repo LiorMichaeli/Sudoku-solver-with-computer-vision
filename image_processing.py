@@ -14,7 +14,7 @@
             sudoku_board_as_numbers_array = get_sudoku_board_as_array_from_img('Data/sudoku_img_example.jpg',
                                                                        [8, 1, 9, 5, 8, 7, 1, 4, 9, 7, 6, 7, 1, 2, 5, 8,
                                                                        6, 1, 7, 1, 5, 2, 9, 7, 4, 6, 8, 3, 9, 4, 3, 5, 8])
-    """
+"""
 
 
 # Imports
@@ -109,7 +109,7 @@ def __get_corners_of_sudoku_board(img_after_pre_processing: np.ndarray) -> Tuple
     contours, _ = cv.findContours(img_after_pre_processing, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
     corners_of_largest_square_in_img = __get_corners_of_largest_square_in_img(contours)
     if corners_of_largest_square_in_img is None:
-        raise Exception(Errors.NOT_FOUND_SUDOKU_BOARD)
+        raise Exception(Errors.NOT_DETECT_SUDOKU_BOARD)
     sorted_corners_of_largest_square_in_img = sort_corners_of_square(corners_of_largest_square_in_img)
     return sorted_corners_of_largest_square_in_img
 

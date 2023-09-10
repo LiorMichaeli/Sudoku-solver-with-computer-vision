@@ -41,7 +41,7 @@ class SudokuSolver:
 
     def solve_sudoku(self, arg_do_recursive_drawing: bool) -> None:
         self.__solve_sudoku_rec(((constants.INDEX_OF_FIRST_ROW_IN_SUDOKU_BOARD, constants.INDEX_OF_FIRST_COL_IN_SUDOKU_BOARD),
-                                 (constants.INDEX_OF_LAST_ROW_IN_FIRST_AREA_IN_LINE, constants.INDEX_OF_FIRST_COL_IN_SUDOKU_BOARD)),
+                                     (constants.INDEX_OF_LAST_ROW_IN_FIRST_AREA_IN_LINE, constants.INDEX_OF_LAST_COL_IN_FIRST_AREA_IN_LINE)),
                                 arg_row_index=constants.INDEX_OF_FIRST_ROW_IN_SUDOKU_BOARD, arg_col_index=constants.INDEX_OF_FIRST_COL_IN_SUDOKU_BOARD,
                                 arg_amount_of_recursive_calls=0, arg_do_recursive_drawing=arg_do_recursive_drawing)
 

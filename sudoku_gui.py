@@ -94,9 +94,9 @@ class SudokuGui:
                 if number:
                     font = pygame.font.Font(None, constants.NUMBERS_FONT_IN_SUDOKU_BOARD_GUI)
                     if current_cube.is_an_initialized_sudoku_cube():
-                        text = font.render(str(number), True, color=self.__line_color)
+                        text = font.render(str(number), True, self.__line_color)
                     else:
-                        text = font.render(str(number), True, color=constants.RED_COLOR)
+                        text = font.render(str(number), True, constants.RED_COLOR)
                     self.__screen.blit(text, (col_index * cube_size + cube_size//2.5, row_index * cube_size + cube_size//2.5))
 
     @staticmethod
