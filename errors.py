@@ -1,3 +1,9 @@
+"""
+errors
+
+This is file that contains errors that may occur in the software.
+"""
+
 
 # Imports
 from enum import Enum
