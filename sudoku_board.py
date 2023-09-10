@@ -33,7 +33,7 @@ class SudokuCube:
             current_row_of_cubes_in_sudoku_board.append(sudoku_cube)
     """
     def __init__(self, arg_value: int, arg_is_an_initialized_cube: bool) -> None:
-        self.__value = constants.EMPTY_CUBE
+        self.__value = constants.EMPTY_CUBE_VALUE
         self.set_value_of_sudoku_cube(arg_value)
         self.__is_an_initialized_sudoku_cube = arg_is_an_initialized_cube
 
@@ -93,7 +93,7 @@ class SudokuBoard:
         for row_index in range(constants.NUMBER_OF_ROWS_IN_SUDOKU_BOARD):
             current_row_of_cubes_in_sudoku_board = []
             for col_index in range(constants.NUMBER_OF_COLS_IN_SUDOKU_BOARD):
-                if arg_starter_sudoku_board[row_index][col_index] != constants.EMPTY_CUBE:
+                if arg_starter_sudoku_board[row_index][col_index] != constants.EMPTY_CUBE_VALUE:
                     sudoku_cube = SudokuCube(arg_value=arg_starter_sudoku_board[row_index][col_index],
                                              arg_is_an_initialized_cube=True)
                 else:
