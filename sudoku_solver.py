@@ -41,7 +41,7 @@ class SudokuSolver:
 
     def solve_sudoku(self, arg_do_recursive_drawing: bool) -> None:
         self.__solve_sudoku_rec(((constants.INDEX_OF_FIRST_ROW_IN_SUDOKU_BOARD, constants.INDEX_OF_FIRST_COL_IN_SUDOKU_BOARD),
-                                     (constants.INDEX_OF_LAST_ROW_IN_FIRST_AREA_IN_LINE, constants.INDEX_OF_LAST_COL_IN_FIRST_AREA_IN_LINE)),
+                                (constants.INDEX_OF_LAST_ROW_IN_FIRST_AREA_IN_LINE, constants.INDEX_OF_LAST_COL_IN_FIRST_AREA_IN_LINE)),
                                 arg_row_index=constants.INDEX_OF_FIRST_ROW_IN_SUDOKU_BOARD, arg_col_index=constants.INDEX_OF_FIRST_COL_IN_SUDOKU_BOARD,
                                 arg_amount_of_recursive_calls=0, arg_do_recursive_drawing=arg_do_recursive_drawing)
 
@@ -54,11 +54,13 @@ class SudokuSolver:
         elif not current_cube.is_an_initialized_sudoku_cube():
             current_cube.set_value_of_sudoku_cube(current_cube.get_value_of_sudoku_cube()+1)
         current_cube_value = current_cube.get_value_of_sudoku_cube()
+
         if not self.__sudoku_board.has_duplicates_of_value_in_area_or_row_or_col(current_cube_value, arg_area_indexes, arg_row_index, arg_col_index):
             if (arg_row_index, arg_col_index) == constants.INDEXES_OF_LAST_CUBE_IN_SUDOKU_BOARD: return True
             next_cube_indexes = self.__sudoku_board.get_next_cube_indexes(arg_area_indexes, arg_row_index, arg_col_index)
             result = self.__solve_sudoku_rec(next_cube_indexes[constants.CUBE_AREA_INDEXES], next_cube_indexes[constants.CUBE_ROW_INDEX],
-                                             next_cube_indexes[constants.CUBE_COL_INDEX], arg_amount_of_recursive_calls+1, arg_do_recursive_drawing)
+                                             next_cube_indexes[constants.CUBE_COL_INDEX], arg_amount_of_recursive_calls + 1, arg_do_recursive_drawing)
+
         self.__draw_solving_sudoku_process(arg_do_recursive_drawing, arg_amount_of_recursive_calls)
         if result is False:
             if current_cube_value < constants.MAX_LEGAL_VALUE_OF_SUDOKU_CUBE and not current_cube.is_an_initialized_sudoku_cube():

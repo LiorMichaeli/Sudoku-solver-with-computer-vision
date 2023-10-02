@@ -27,7 +27,7 @@ from errors import Errors
 
 
 def get_sudoku_board_as_array_from_img(arg_img_path: str, arg_initialized_numbers_in_sodoku_by_order: List[int]) -> List[List[int]]:
-    '''
+    """
     This is a function that gets img path and the numbers that were initialized in sodoku by order
          from left to right and top to bottom, and returns 2D array of numbers that represents the sudoku board.
     :param arg_img_path:
@@ -35,7 +35,8 @@ def get_sudoku_board_as_array_from_img(arg_img_path: str, arg_initialized_number
     :exception Not succeeded to detect the sudoku board: If the program not succeeded to detect the sudoku board so
      the function will raise an exception with the appropriate error msg.
     :return: 2D array of numbers that represents the sudoku_board.
-    '''
+    """
+
     img_after_pre_processing = __pre_processing(arg_img_path)
     try:
         sudoku_board_gray_scale_img = __get_sudoku_board_as_gray_scale_img(img_after_pre_processing)
@@ -43,13 +44,14 @@ def get_sudoku_board_as_array_from_img(arg_img_path: str, arg_initialized_number
         raise e
     cells_imgs_list_in_sorted_order = __get_sudoku_board_cells_in_sorted_order(sudoku_board_gray_scale_img)
     sudoku_board_as_numbers_array = __convert_cells_imgs_to_numbers(sudoku_board_gray_scale_img,
-                                                                  cells_imgs_list_in_sorted_order,
-                                                                  arg_initialized_numbers_in_sodoku_by_order)
+                                                                    cells_imgs_list_in_sorted_order,
+                                                                    arg_initialized_numbers_in_sodoku_by_order)
     return sudoku_board_as_numbers_array
 
 def __pre_processing(arg_img_path: str) -> np.ndarray:
     img = cv.imread(arg_img_path)
     gray_scale_img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    # (3,3) is the kernel size and 5 is the sigma value
     blur_gray_scale_img = cv.GaussianBlur(gray_scale_img, (3, 3), 5)
     threshold_img = cv.adaptiveThreshold(blur_gray_scale_img, constants.MAX_VALUE_FOR_PIXEL, cv.ADAPTIVE_THRESH_MEAN_C,
                                          cv.THRESH_BINARY_INV, blockSize=11, C=12)
@@ -62,7 +64,7 @@ def __get_sudoku_board_as_gray_scale_img(arg_img_after_pre_processing: np.ndarra
     except Exception as e:
         raise e
     sudoku_board_gray_scale_img = __warp_sudoku_board(arg_img_after_pre_processing, top_left_corner, top_right_corner,
-                                                    bottom_right_corner, bottom_left_corner)
+                                                      bottom_right_corner, bottom_left_corner)
     return sudoku_board_gray_scale_img
 
 def __get_sudoku_board_cells_in_sorted_order(arg_sudoku_board_gray_scale_img: np.ndarray) -> List[np.ndarray]:
@@ -78,6 +80,7 @@ def __get_sudoku_board_cells_in_sorted_order(arg_sudoku_board_gray_scale_img: np
                         (col_index * cell_size) + (cell_size // constants.RATIO_BETWEEN_BOUNDARIES_OF_A_CELL_AND_THE_CELL_ITSELF):
                         ((col_index + 1) * cell_size) - (cell_size // constants.RATIO_BETWEEN_BOUNDARIES_OF_A_CELL_AND_THE_CELL_ITSELF)
                         ]
+
             # We do threshold in order to in each cell in the img if there is number he will be in white
             _, threshold_digit_img = cv.threshold(digit_img, thresh=250, maxval=constants.MAX_VALUE_FOR_PIXEL, type=cv.THRESH_BINARY)
             sudoku_board_cells.append(threshold_digit_img)
@@ -109,7 +112,7 @@ def __get_corners_of_sudoku_board(arg_img_after_pre_processing: np.ndarray) -> T
     contours, _ = cv.findContours(arg_img_after_pre_processing, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
     corners_of_largest_square_in_img = __get_corners_of_largest_square_in_img(contours)
     if corners_of_largest_square_in_img is None:
-        raise Exception(Errors.NOT_DETECT_SUDOKU_BOARD)
+        raise Exception(Errors.NOT_DETECT_SUDOKU_BOARD.value)
     sorted_corners_of_largest_square_in_img = sort_corners_of_square(corners_of_largest_square_in_img)
     return sorted_corners_of_largest_square_in_img
 
@@ -119,8 +122,9 @@ def __get_corners_of_largest_square_in_img(arg_contours: List[np.ndarray]) -> Un
     largest_square_area = 0
     for contour in arg_contours:
         # Approximate the contour to a polygon with fewer corners
-        epsilon = 0.04 * cv.arcLength(contour, True)
-        approx = cv.approxPolyDP(contour, epsilon, True)
+        epsilon = 0.04 * cv.arcLength(contour, closed=True)
+        approx = cv.approxPolyDP(contour, epsilon, closed=True)
+
         # Checks if the polygon has 4 corners (a square)
         if len(approx) == constants.AMOUNT_OF_CORNERS_IN_SQUARE:
             # Calculate the area of the square
@@ -128,22 +132,26 @@ def __get_corners_of_largest_square_in_img(arg_contours: List[np.ndarray]) -> Un
             if area > largest_square_area:
                 corners_of_largest_square = approx
                 largest_square_area = area
-    return corners_of_largest_square if corners_of_largest_square is not None else None
+
+    return corners_of_largest_square
 
 
 def __warp_sudoku_board(arg_img_after_pre_processing: np.ndarray, arg_top_left_corner: List[int], arg_top_right_corner: List[int],
                         arg_bottom_right_corner: List[int], arg_bottom_left_corner: List[int]) -> np.ndarray:
+
     # The width of the sudoku board img will be the max distance between two adjacent corners in a square
     sudoku_board_img_width = max([get_distance_between_points(arg_top_left_corner, arg_top_right_corner),
                                   get_distance_between_points(arg_top_right_corner, arg_bottom_right_corner),
                                   get_distance_between_points(arg_bottom_right_corner, arg_bottom_left_corner),
                                   get_distance_between_points(arg_bottom_left_corner, arg_top_left_corner)])
+
     # Matching the indexes of the sudoku_board corners to their indexes in the new sudoku board img
     src_img = np.array([arg_top_left_corner, arg_top_right_corner, arg_bottom_right_corner, arg_bottom_left_corner], dtype='float32')
     dst_img = np.array([constants.INDEXES_OF_TOP_LEFT_PIXEL_IN_IMG,
                         (sudoku_board_img_width - 1, constants.ROW_INDEX_OF_TOP_RIGHT_PIXEL_IN_IMG),
                         (sudoku_board_img_width - 1, sudoku_board_img_width - 1),
                         (constants.COL_INDEX_OF_BOTTOM_LEFT_PIXEL_IN_IMG, sudoku_board_img_width - 1)], dtype='float32')
+
     # Calculate the perspective transformation matrix
     perspective_transformation_matrix = cv.getPerspectiveTransform(src_img, dst_img)
     sudoku_board_gray_scale_img = cv.warpPerspective(arg_img_after_pre_processing, perspective_transformation_matrix,

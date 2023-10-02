@@ -14,10 +14,12 @@ import constants
 
 def main(list_of_args):
     try:
-        img_path_arg = list_of_args[constants.INDEX_OF_IMG_PATH_ARG_IN_ARGS_LIST]
+        # Get args from args list
+        img_path_arg = list_of_args[constants.INDEX_OF_IMG_PATH_ARG]
         initialized_numbers_in_sudoku_by_order_arg = [int(number) for number
-                                                      in list_of_args[constants.INDEX_OF_INITIALIZED_NUMBERS_IN_SUDOKU_BY_ORDER_ARG_IN_ARGS_LIST].split(" ")]
-        do_recursive_drawing_arg = list_of_args[constants.INDEX_OF_DO_RECURSIVE_DRAWING_ARG_IN_ARGS_LIST].lower() == "true"
+                                                      in list_of_args[constants.INDEX_OF_INITIALIZED_NUMBERS_IN_SUDOKU_BY_ORDER_ARG].split(" ")]
+        do_recursive_drawing_arg = list_of_args[constants.INDEX_OF_DO_RECURSIVE_DRAWING_ARG].lower() == "true"
+
         sudoku_board_as_numbers_array = get_sudoku_board_as_array_from_img(img_path_arg, initialized_numbers_in_sudoku_by_order_arg)
         sudoku_board = SudokuBoard(sudoku_board_as_numbers_array)
         sudoku_gui = SudokuGui(constants.WINDOW_SIZE, constants.AMOUNT_OF_CUBES_IN_AREA, constants.SCREEN_COLOR, constants.LINE_COLOR)
@@ -30,4 +32,4 @@ def main(list_of_args):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main(sys.argv[constants.INDEX_OF_FIRST_ARG:])

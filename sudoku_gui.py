@@ -78,9 +78,11 @@ class SudokuGui:
             # Checks if we are in cube index that represents the end of the area
             if cube_index % math.sqrt(self.__amount_of_cubes_in_area) == math.sqrt(self.__amount_of_cubes_in_area)-1:
                 line_border = constants.END_AREA_LINE_BORDER_IN_SUDOKU_BOARD_GUI
+
             # Draw vertical line
             pygame.draw.line(self.__screen, self.__line_color, [(cube_index+1)*cube_size, constants.INDEX_OF_FIRST_ROW_IN_SUDOKU_BOARD],
                              [(cube_index+1)*cube_size, self.__window_size], line_border)
+
             # Draw horizontal line
             pygame.draw.line(self.__screen, self.__line_color, [constants.INDEX_OF_FIRST_COL_IN_SUDOKU_BOARD, (cube_index+1)*cube_size],
                              [self.__window_size, (cube_index+1)*cube_size], line_border)

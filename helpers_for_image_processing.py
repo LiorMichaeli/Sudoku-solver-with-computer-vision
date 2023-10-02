@@ -22,11 +22,13 @@ def sort_corners_of_square(arg_corners_of_largest_square_in_img: np.ndarray) -> 
 def get_two_leftmost_corners_in_square(arg_corners_of_largest_square_in_img: np.ndarray) -> list[List[int], List[int]]:
     if arg_corners_of_largest_square_in_img[constants.INDEX_OF_FIRST_CORNER][constants.GET_CORNER][constants.COL_INDEX_IN_IMG]\
             <= arg_corners_of_largest_square_in_img[constants.INDEX_OF_SECOND_CORNER][constants.GET_CORNER][constants.COL_INDEX_IN_IMG]:
+
         leftmost_corner = arg_corners_of_largest_square_in_img[constants.INDEX_OF_FIRST_CORNER][constants.GET_CORNER]
         second_leftmost_corner = arg_corners_of_largest_square_in_img[constants.INDEX_OF_SECOND_CORNER][constants.GET_CORNER]
     else:
         leftmost_corner = arg_corners_of_largest_square_in_img[constants.INDEX_OF_SECOND_CORNER][constants.GET_CORNER]
         second_leftmost_corner = arg_corners_of_largest_square_in_img[constants.INDEX_OF_FIRST_CORNER][constants.GET_CORNER]
+
     leftmost_corner_col_coordinate = leftmost_corner[constants.COL_INDEX_IN_IMG]
     second_leftmost_corner_col_coordinate = second_leftmost_corner[constants.COL_INDEX_IN_IMG]
     for corner in arg_corners_of_largest_square_in_img[constants.INDEX_OF_THIRD_CORNER:]:
@@ -45,11 +47,13 @@ def get_two_leftmost_corners_in_square(arg_corners_of_largest_square_in_img: np.
 def get_two_rightmost_corners_in_square(arg_corners_of_largest_square_in_img: np.ndarray) -> list[List[int], List[int]]:
     if arg_corners_of_largest_square_in_img[constants.INDEX_OF_FIRST_CORNER][constants.GET_CORNER][constants.COL_INDEX_IN_IMG]\
             >= arg_corners_of_largest_square_in_img[constants.INDEX_OF_SECOND_CORNER][constants.GET_CORNER][constants.COL_INDEX_IN_IMG]:
+
         rightmost_corner = arg_corners_of_largest_square_in_img[constants.INDEX_OF_FIRST_CORNER][constants.GET_CORNER]
         second_rightmost_corner = arg_corners_of_largest_square_in_img[constants.INDEX_OF_SECOND_CORNER][constants.GET_CORNER]
     else:
         rightmost_corner = arg_corners_of_largest_square_in_img[constants.INDEX_OF_SECOND_CORNER][constants.GET_CORNER]
         second_rightmost_corner = arg_corners_of_largest_square_in_img[constants.INDEX_OF_FIRST_CORNER][constants.GET_CORNER]
+
     rightmost_corner_corner_col_coordinate = rightmost_corner[constants.COL_INDEX_IN_IMG]
     second_rightmost_corner_col_coordinate = second_rightmost_corner[constants.COL_INDEX_IN_IMG]
     for corner in arg_corners_of_largest_square_in_img[constants.INDEX_OF_THIRD_CORNER:]:

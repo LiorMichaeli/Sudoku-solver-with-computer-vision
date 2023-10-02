@@ -111,7 +111,7 @@ class SudokuBoard:
     @staticmethod
     def get_next_cube_indexes(arg_area_indexes: Tuple[Tuple[int, int], Tuple[int, int]],
                               arg_row_index: int, arg_col_index: int):
-        '''
+        """
         This is a method that gets indexes of cube and returns indexes of the next cube.
         :param arg_area_indexes:
         :param arg_row_index:
@@ -120,9 +120,10 @@ class SudokuBoard:
          the next cube in his area. Else if the cube is not equal to the last cube in the sudoku board
          (his indexes are not equal to (8,8)) so the method will return the first cube in the next area.
           Else the method will return None.
-        '''
+        """
         if arg_row_index == arg_area_indexes[constants.LAST_CUBE_IN_AREA][constants.ROW_INDEX]\
                 and arg_col_index == arg_area_indexes[constants.LAST_CUBE_IN_AREA][constants.COL_INDEX]:
+
             if (arg_row_index, arg_col_index) == constants.INDEXES_OF_LAST_CUBE_IN_SUDOKU_BOARD:
                 return None
             elif arg_col_index == constants.INDEX_OF_LAST_COL_IN_SUDOKU_BOARD:
@@ -135,6 +136,7 @@ class SudokuBoard:
                 return ((arg_area_indexes[constants.FIRST_CUBE_IN_AREA][constants.ROW_INDEX], arg_col_index+1),
                         (arg_row_index, arg_col_index + constants.SIZE_OF_CUBE)),\
                        arg_area_indexes[constants.FIRST_CUBE_IN_AREA][constants.ROW_INDEX], arg_col_index+1
+
         if arg_col_index == arg_area_indexes[constants.LAST_CUBE_IN_AREA][constants.COL_INDEX]:
             return arg_area_indexes, arg_row_index+1, arg_area_indexes[constants.FIRST_CUBE_IN_AREA][constants.COL_INDEX]
         return arg_area_indexes, arg_row_index, arg_col_index+1
