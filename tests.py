@@ -24,7 +24,7 @@ def test_function(arg_img_path: str, arg_initialized_numbers_in_sudoku_by_order:
                                constants.LINE_COLOR)
         sudoku_solver = SudokuSolver(sudoku_board, sudoku_gui)
         sudoku_solver.solve_sudoku(arg_do_recursive_drawing=False)
-        #sudoku_gui.draw_sudoku_board(sudoku_board, arg_is_recursive_drawing=False)
+        sudoku_gui.draw_sudoku_board(sudoku_board, arg_is_recursive_drawing=False)
         return sudoku_board
     except Exception as e:
         print("Error: ", e)
