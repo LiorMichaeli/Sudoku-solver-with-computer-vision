@@ -7,6 +7,6 @@ and outputs a graphical sudoku board with a solution.
 ## For example:
 
 <p align="center">
-  <img src="Data/sudoku_img_5.jpg" width="500" height = "450" />
-  <img src="Results/result_5.png" width="500" height = "450" /> 
+  <img src="Data/sudoku_img_5.jpg" width="200" height = "250" />
+  <img src="Results/result_5.png" width="200" height = "250" /> 
 </p>
